@@ -18,4 +18,4 @@ Draft Whitepaper coming soon.
 
 MVP Stage build
 
-The MVP will have two of the four main components working with each other. Future builds will incorporate a dApp browswer and integrated low latency distrabuted solution. The two components 
+The MVP will have two of the four main components working with each other. Future builds will incorporate a dApp browswer and integrated low latency distrabuted solution. The two components
