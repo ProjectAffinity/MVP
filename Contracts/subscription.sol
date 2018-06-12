@@ -12,4 +12,7 @@ contract subscription{
     uint public age;
     uint public cellNumber;
   }
+  function subscriberInfo(string word) {
+    
+  }
 }
