@@ -1,18 +1,20 @@
 pragma solidity ^0.4.24;
-
+x
 /// @title: Subscription ERC948
 /// @author: Mekyle Naidoo
 
-contract subscription{
+pragma solidity ^0.4.0;
+contract Subscription {
 
-///This gets the users basic information that can be linked to users
-  function basicInfo() public{
-    string public firstName;
-    string public lastName;
-    uint public age;
-    uint public cellNumber;
-  }
-  function subscriberInfo(string word) {
-    
-  }
+string public owner;
+string public BillerName;
+string public Biller;
+string public MerchantID;
+string public SubscriberEmail;
+uint public SubscriberCell;
+
+function biller() {
+
+}
+
 }
