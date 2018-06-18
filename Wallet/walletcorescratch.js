@@ -1,27 +1,14 @@
-const hdkey = require('ethereumjs-wallet/hdkey');
-const bip39 = require('bip39');
-const Web3 = require('web3');
-const Wallet = require('ethereumjs-wallet');
-const EthUtil = require('ethereumjs-util');
+const bip39 = require('bip39')
+const hdkey = require('ethereumjs-wallet/hdkey')
+const util = require('ethereumjs-util')
 
-
-const mnemonic = bip39.generateMnemonic(); //generates string
-const seed = bip39.mnemonicToSeed(mnemonic); //creates seed buffer
-const root = hdkey.fromMasterSeed(seed);
-const masterPrivateKey = root.privateKey.toString('Hex');// This creates the master private key
-const addrNode = root.derivePath("m/44'/60'/0'/0/0");
-const address = addrNode.getWallet().getChecksumAddressString();
-
-const rawTx = wallet.sign({
-  from: '0x...',
-  to: '0x...',
-  value: 200000000000000000,
-  nonce: 0x0,
-  gasPrice: 50000000000,
-  gasLimit: 21000,
-  chainId: 1 /* see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md */
-})
-
-console.log( rawTx ) /* "0x...." */
-
-web3.eth.sendRawTransaction(rawTx, (err) => { ... })
+const mnemonic = bip39.generateMnemonic();
+console.log(mnemonic);
+const seed = bip39.mnemonicToSeed(mnemonic);
+console.log(seed);
+var hdWallet = hdkey.fromMasterSeed(seed)
+console.log(hdWallet);
+var key1 = hdWallet.derivePath("m/44'/60'/0'/0/0")
+console.log(key1);
+var address1 = util.pubToAddress(key1._hdkey._publicKey, true)
+console.log(address1);
