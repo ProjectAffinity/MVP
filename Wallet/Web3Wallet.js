@@ -1,15 +1,47 @@
 
-      var web3 = new Web3();
-      var global_keystore;
-      function setWeb3Provider(keystore) {
-        var web3Provider = new HookedWeb3Provider({
-          host: "https://rinkeby.infura.io/",
-          transaction_signer: keystore
-        });
-        web3.setProvider(web3Provider);
-      }
-      
-      function newAddresses(password) {
+var web3 = new Web3();
+
+function setWeb3Provider(keystore) {
+   var web3Provider = new HookedWeb3Provider({host: "https://rinkeby.infura.io/",transaction_signer: keystore});
+   web3.setProvider(web3Provider);
+}
+
+var keystore;
+
+function userPassword(Password){
+  var password = document.getElementById('Password').value;
+  document.getElementById("userPassword").innerHTML = password;
+}
+
+keyStore.createVault({password: password,seedPhrase: seedPhrase,hdPathString: hdPath}, function (err, ks) {
+
+  var seed = keystore.generateRandomSeed(seedPhrase);
+
+  if () returns bool{
+  keystore.isSeedValid(seed)
+  }
+  // Some methods will require providing the `pwDerivedKey`,
+  // Allowing you to only decrypt private keys on an as-needed basis.
+  // You can generate that value with this convenient method:
+  ks.keyFromPassword(password, function (err, pwDerivedKey) {
+    if (err) throw err;
+
+    // generate five new address/private key pairs
+    // the corresponding private keys are also encrypted
+    ks.generateNewAddress(pwDerivedKey, 5);
+    var addr = ks.getAddresses();
+
+    ks.passwordProvider = function (callback) {
+      var pw = prompt("Please enter password", "Password");
+      callback(null, pw);
+    };
+
+    // Now set ks as transaction_signer in the hooked web3 provider
+    // and you can start using web3 using the keys/addresses in ks!
+  });
+});
+
+function newAddresses(password) {
 
         if (password == '') {
           password = prompt('Enter password to retrieve addresses', 'Password');
@@ -27,7 +59,8 @@
         getBalances();
       })
       }
-      function getBalances() {
+
+function getBalances() {
 
         var addresses = global_keystore.getAddresses();
         document.getElementById('addr').innerHTML = 'Retrieving addresses...'
@@ -40,7 +73,8 @@
           })
         })
       }
-      function setSeed() {
+
+function setSeed() {
         var password = prompt('Enter Password to encrypt your seed', 'Password');
       lightwallet.keystore.createVault({
         password: password,

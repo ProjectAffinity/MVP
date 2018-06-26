@@ -12,9 +12,9 @@ const rawTx = wallet.sign({
   nonce: 0x0,
   gasPrice: 50000000000,
   gasLimit: 21000,
-  chainId: 1 /* see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md */
+  chainId: 1 
 })
 
-console.log( rawTx ) /* "0x...." */
+console.log( rawTx )
 
 web3.eth.sendRawTransaction(rawTx, (err) => { ... })
