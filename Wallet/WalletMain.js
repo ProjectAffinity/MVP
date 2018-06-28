@@ -1,16 +1,21 @@
-
-const Web3 = require("web3");
-const web3 = new Web3();
+var Web3 = require('web3');
+var web3 = new Web3('http://localhost:8545');
 const eth-LightWallet = require('eth-lightwallet');
 const Transaction = require('ethereumjs-tx');
+const hdkey = require('ethereumjs-wallet/hdkey');
+const crypto = require('crypto');
+const bip39 = require('bip39');
+const utils = require('ethereumjs-util');
+
+const defaultHdPath = "m/44'/60'/0'/0/"
 
 function setWeb3Provider(keystore) {
    var web3Provider = new HookedWeb3Provider({host: "https://rinkeby.infura.io/",transaction_signer: keystore});
    web3.setProvider(web3Provider);
 }
 
-var seed = lightwallet.keyStore.generateRandomSeed();
 const accountPassword; //Prompt user for password;
+var seed = lightwallet.keyStore.generateRandomSeed();
 lightwallet.keyStore.deriveKeyFromPassword(accountPassword, function(err, pwDerivedKey){
     if(err) throw err;
     var ks = lightwallet.keyStore(seed,pwDerivedKey);

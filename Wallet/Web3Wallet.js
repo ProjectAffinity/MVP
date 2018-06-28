@@ -91,7 +91,8 @@ function setSeed() {
         getBalances();
         })
       }
-      function newWallet() {
+
+function newWallet() {
         var extraEntropy = document.getElementById('userEntropy').value;
         document.getElementById('userEntropy').value = '';
         var randomSeed = lightwallet.keystore.generateRandomSeed(extraEntropy);
@@ -112,14 +113,16 @@ function setSeed() {
         getBalances();
         })
       }
-      function showSeed() {
+
+function showSeed() {
         var password = prompt('Enter password to show your seed. Do not let anyone else see your seed.', 'Password');
         global_keystore.keyFromPassword(password, function(err, pwDerivedKey) {
         var seed = global_keystore.getSeed(pwDerivedKey);
         alert('Your seed is: "' + seed + '". Please write it down.');
         });
-      }
-      function sendEth() {
+}
+
+function sendEth() {
         var fromAddr = document.getElementById('sendFrom').value
         var toAddr = document.getElementById('sendTo').value
         var valueEth = document.getElementById('sendValueAmount').value
@@ -130,8 +133,9 @@ function setSeed() {
           console.log('error: ' + err)
           console.log('txhash: ' + txhash)
         })
-      }
-      function functionCall() {
+}
+
+function functionCall() {
         var fromAddr = document.getElementById('functionCaller').value
         var contractAddr = document.getElementById('contractAddr').value
         var abi = JSON.parse(document.getElementById('contractAbi').value)
@@ -149,4 +153,4 @@ function setSeed() {
         }
         args.push(callback)
         contract[functionName].apply(this, args)
-      }
+}
