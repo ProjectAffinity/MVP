@@ -1,62 +1,73 @@
 pragma solidity ^0.4.24;
 import './DateTime.sol';
 
-contract subscription{
+contract subscription is DateTme{
 
   address internal owner;
   DateTime internal dateTime;
+  bool subContractActive;
 
-
-
-  struct time {
-    uint16 year = _year.getYear();
-    uint8 month = _month.getMonth();
-    uint8 day = _day.getDay();
-  }
-
-  function payment() public payable {
+  function deposit() public payable {
     owner = msg.sender;
   }
 
-  modifier onlyOwner() external{
-    require(msg.sender == owner);
+  struct DateNow {
+    uint16 currentYear = getYear(now);
+    uint8 currentMonth = getMonth(now);
+    uint8 currentDay = getDay(now);
+  }
+
+  struct PaymentDate {
+    uint16 nextYear = DateNow.currentYear++;
+    uint8 nextMonth = 
+    if(currentMonth==12){
+      nextMonth = 1;
+    }
+    else{
+    DateNow.currentMonth++
+    };
+    uint8 nextDay;
   }
 
   struct SubscriptionInfo{
     address[] merchant;
     uint[] price;
-    uint[] recurringPeriod;
-    uint[] startTime = blocktimestamp;
-    bool[] subActive;
+    uint[] periodType;
+    bytes32[] currentDate;
+    bytes32[] nextPaymentDate
   }
 
   uint subID;
   mapping (uint => SubscriptionInfo) Subscriptions;
 
-  function getSubInfo(address _merchant, uint _price, bool _active, uint8 _periodType) public returns (bool) {
+  function createSubscription(address _merchant, uint _price, uint8 _periodType) public returns (bool) {
     var subscription = Subscriptions[subID++];
     Subscriptions.merchant = _merchant;
     Subscriptions.price = _price;
-    Subscriptions.startTime = block.timestamp;
-    Subscriptions.subActive = _active;
+    Subscriptions.currentDate = DateNow.currentYear + DateNow.currentMonth + DateNow.currentDay;
+    Subscriptions.periodType = _periodType;
 
-    if (_periodType==1){
-      for()
+    if(Subscriptions.periodType == 1){
+      PaymentDate.nextYear;
     }
 
-    if (_periodType==2){
-      month.getMonth();
-      for(i=)
+    else{
+      if(Subscriptions.periodType == 2){
+        PaymentDate.nextMonth;
+      }
     }
+
     return true;
   }
-
-
-
 
   function getBalance() returns (uint) {
     uint balance = owner.balance();
     return balance;
+  }
+
+  function subscriptionPayment() {
+    require((this.balance) > Subscriptions.price)
+    SubscriptionInfo.merchant.transfer(SubscriptionInfo.price);
   }
 
   function withdrawl(bool _fullWithdrawal, uint _withdrawlAmount) external returns (bool) {
