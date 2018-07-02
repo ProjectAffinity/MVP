@@ -5,7 +5,6 @@ contract subscription is DateTme{
 
   address internal owner;
   DateTime internal dateTime;
-  bool subContractActive;
 
   function deposit() public payable {
     owner = msg.sender;
@@ -19,7 +18,7 @@ contract subscription is DateTme{
 
   struct PaymentDate {
     uint16 nextYear = DateNow.currentYear++;
-    uint8 nextMonth = 
+    uint8 nextMonth =
     if(currentMonth==12){
       nextMonth = 1;
     }
@@ -32,7 +31,7 @@ contract subscription is DateTme{
   struct SubscriptionInfo{
     address[] merchant;
     uint[] price;
-    uint[] periodType;
+    uint8[] periodType;
     bytes32[] currentDate;
     bytes32[] nextPaymentDate
   }
@@ -49,6 +48,11 @@ contract subscription is DateTme{
 
     if(Subscriptions.periodType == 1){
       PaymentDate.nextYear;
+      for(){
+         if(PaymentDate.nextYear == now ){
+         Subscriptions.merchant.send(Subscriptions)
+         }
+      }
     }
 
     else{
@@ -80,7 +84,8 @@ contract subscription is DateTme{
       return true;
   }
 
-  function cancelSubscription(address _cancelledAddress) public returns (bool) {
-    require()
+  function cancelSubscription(uint _subID) public returns (bool) {
+    require(owner == msg.sender);
+    msg.sender.send(balance);
   }
 }
