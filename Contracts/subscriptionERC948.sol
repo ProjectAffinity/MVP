@@ -10,34 +10,32 @@ contract subscription is DateTme{
     owner = msg.sender;
   }
 
-  struct DateNow {
-    uint16 currentYear = getYear(now);
-    uint8 currentMonth = getMonth(now);
-    uint8 currentDay = getDay(now);
-  }
-
-  struct PaymentDate {
-    uint16 nextYear = DateNow.currentYear++;
-    uint8 nextMonth =
-    if(currentMonth==12){
-      nextMonth = 1;
-    }
-    else{
-    DateNow.currentMonth++
-    };
-    uint8 nextDay;
-  }
-
   struct SubscriptionInfo{
-    address[] merchant;
-    uint[] price;
-    uint8[] periodType;
-    bytes32[] currentDate;
-    bytes32[] nextPaymentDate
+    address merchant;
+    uint8 periodType;
+    uint price;
+    bytes32 currentDate;
+    bytes32 nextPaymentDate;
+    uint16 currentYear;
+    uint8 currentMonth;
+    uint8 currentDay;
+    uint16 nextYear;
+    uint8 nextMonth;
+    uint8 nextDay;
   }
 
   uint subID;
   mapping (uint => SubscriptionInfo) Subscriptions;
+
+  function () {
+    uint16 currentYear = getYear(now);
+    uint8 currentMonth = getMonth(now);
+    uint8 currentDay = getDay(now);
+    uint16 nextYear = DateNow.currentYear++;
+    uint8 nextMonth = if(currentMonth==12){
+      nextMonth = 1;}
+                      else{DateNow.currentMonth++};
+  }
 
   function createSubscription(address _merchant, uint _price, uint8 _periodType) public returns (bool) {
     var subscription = Subscriptions[subID++];
@@ -61,8 +59,20 @@ contract subscription is DateTme{
       }
     }
 
+    if (this.balance < amount) return false;
+		balances[msg.sender] -= amount;
+		balances[receiver] += amount;
+		Transfer(msg.sender, receiver, amount);
     return true;
   }
+
+  function sendPayment(address receiver, uint amount) returns(bool sufficient) {
+		if (this.balance < amount) return false;
+		balances[msg.sender] -= amount;
+		balances[receiver] += amount;
+		Transfer(msg.sender, receiver, amount);
+		return true;
+	}
 
   function getBalance() returns (uint) {
     uint balance = owner.balance();
@@ -75,12 +85,10 @@ contract subscription is DateTme{
   }
 
   function withdrawl(bool _fullWithdrawal, uint _withdrawlAmount) external returns (bool) {
-      fullWithdrawal = _fullWithdrawal;
-      if(fullBalance==true){
+      if(_fullWithdrawal==true){
         owner.transfer(this.balance);
       }
-      withdrawalAmount = _withdrawlAmount;
-      owner.transfer(witdrawalAmount);
+      owner.transfer(_witdrawalAmount);
       return true;
   }
 
